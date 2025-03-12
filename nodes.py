@@ -32,7 +32,7 @@ class TAESDVaeDecode:
         if self.taesd is None:
             self.taesd = TAESD(None, folder_paths.get_full_path("vae_approx", vae)).to(model_management.get_torch_device())
 
-        x_sample = self.taesd.decoder((latent['samples'].to(model_management.get_torch_device()) * 0.18215))[0].detach()
+        x_sample = self.taesd.taesd_decoder((latent['samples'].to(model_management.get_torch_device()) * 0.18215))[0].detach()
         x_sample = x_sample.sub(0.5).mul(2)
         x_sample = torch.clamp((x_sample + 1.0) / 2.0, min=0.0, max=1.0)
         # x_sample = x_sample.movedim(1, -1)
